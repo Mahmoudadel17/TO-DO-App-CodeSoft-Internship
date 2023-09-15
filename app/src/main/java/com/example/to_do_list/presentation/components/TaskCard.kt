@@ -3,6 +3,7 @@ package com.example.to_do_list.presentation.components
 
 
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Checkbox
@@ -19,6 +21,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -59,15 +65,16 @@ fun TaskItem(
     onDeleteConfirm:() -> Unit,
     onDateChange:(Task,Int,Int,Int) -> Unit,
     onTimeChange:(Task,Int,Int) -> Unit,
-    onTaskClick: (Task) -> Unit,
+    onUpdateTask:(Task)->Unit,
 ) {
     val context = LocalContext.current
+    var isShowContent by rememberSaveable { mutableStateOf(false) }
     Box(
         modifier = modifier
             .padding(5.dp)
             .then(Modifier.shadow(15.dp))
             .clickable {
-                onTaskClick(task)
+                isShowContent=isShowContent.not()
             }
 
     ) {
@@ -153,8 +160,23 @@ fun TaskItem(
                 }
 
             }
+            AnimatedVisibility(visible = isShowContent) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(horizontal = 10.dp)
+                    ) {
+                    Text(
+                        text = task.content,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color =  MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.weight(0.70f),
+                        textDecoration = if (task.isComplete)TextDecoration.LineThrough else TextDecoration.None
+                    )
+
+                }
+            }
             Row(
-                modifier = Modifier.padding(top = 3.dp),
+                modifier = Modifier.padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             )
             {
@@ -175,7 +197,7 @@ fun TaskItem(
                 Spacer(modifier = Modifier.width(5.dp))
                 Text(text = task.dueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     color = MaterialTheme.colorScheme.onSurface)
-                Spacer(modifier = Modifier.width(40.dp))
+                Spacer(modifier = Modifier.width(30.dp))
                 Icon(
                     painter = painterResource(id =  R.drawable.baseline_access_time_24),
                     contentDescription = "DueTime",
@@ -191,6 +213,17 @@ fun TaskItem(
                 Spacer(modifier = Modifier.width(5.dp))
                 Text(text = task.dueDate.format(DateTimeFormatter.ofPattern("HH:mm")),
                     color = MaterialTheme.colorScheme.onSurface)
+
+
+                Spacer(modifier = Modifier.width(20.dp))
+                Icon(
+                   imageVector = Icons.Default.Edit,
+                    contentDescription = "Update task",
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.clickable {
+                        onUpdateTask(task)
+                    }
+                )
             }
 
         }

@@ -41,10 +41,8 @@ fun FavoriteScreen(appNavController: NavHostController, viewModel: TasksScreenVi
                             onDialogDismiss = { viewModel.onDismissDialogDelete() },
                             onDateChange = {task,year,month,day -> viewModel.onDateChange(task,year,month,day)},
                             onTimeChange = {task,hour,minute -> viewModel.onTimeChange(task,hour,minute)},
-                        ) { updateTask->
-                            // navigate to task view screen
-                            viewModel.onTaskClick(updateTask, appNavController)
-                        }
+                            onUpdateTask = {updateTask -> viewModel.onUpdateTaskClick(updateTask,appNavController)}
+                        )
                     }
                     item {
                         if (tasks.filter {task -> task.isComplete && task.isFavorite}.isNotEmpty() && tasks.filter {task -> !task.isComplete && task.isFavorite}.isNotEmpty()){
@@ -68,10 +66,9 @@ fun FavoriteScreen(appNavController: NavHostController, viewModel: TasksScreenVi
                             onDialogDismiss = { viewModel.onDismissDialogDelete() },
                             onDateChange = {task,year,month,day -> viewModel.onDateChange(task,year,month,day)},
                             onTimeChange = {task,hour,minute -> viewModel.onTimeChange(task,hour,minute)},
-                        ) {updateTask->
-                            // navigate to task view screen
-                            viewModel.onTaskClick(updateTask, appNavController)
-                        }
+                            onUpdateTask = {updateTask -> viewModel.onUpdateTaskClick(updateTask,appNavController)}
+                        )
+
                     }
 
                 }

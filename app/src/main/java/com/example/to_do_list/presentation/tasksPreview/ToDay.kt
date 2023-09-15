@@ -54,23 +54,13 @@ fun ToDayTasksScreen(appNavController: NavHostController, viewModel: TasksScreen
                             onShowDialog = { task -> viewModel.onShowDialogDelete(task) },
                             onDialogDismiss = {viewModel.onDismissDialogDelete() },
                             onDateChange = { task, year, month, day ->
-                                viewModel.onDateChange(
-                                    task,
-                                    year,
-                                    month,
-                                    day
-                                )
+                                viewModel.onDateChange(task, year, month, day)
                             },
-                            onTimeChange = { task, hour, minute ->
-                                viewModel.onTimeChange(
-                                    task,
-                                    hour,
-                                    minute
-                                )
-                            },
-                        ) {updateTask->
-                            viewModel.onTaskClick(updateTask, appNavController)
-                        }
+                            onTimeChange = { task, hour, minute -> viewModel.onTimeChange(task, hour, minute) },
+                            onUpdateTask = {updateTask -> viewModel.onUpdateTaskClick(updateTask,appNavController)}
+
+                        )
+
                     }
 
 
@@ -114,9 +104,8 @@ fun ToDayTasksScreen(appNavController: NavHostController, viewModel: TasksScreen
                                     minute
                                 )
                             },
-                        ) {updateTask->
-                            viewModel.onTaskClick(updateTask, appNavController)
-                        }
+                            onUpdateTask = {updateTask -> viewModel.onUpdateTaskClick(updateTask,appNavController)}
+                        )
                     }
 
 

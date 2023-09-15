@@ -8,11 +8,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.to_do_list.presentation.HomeScreen
-import com.example.to_do_list.presentation.components.UpdateTaskScreen
+import com.example.to_do_list.presentation.tasksPreview.UpdateTaskScreen
 import com.example.to_do_list.presentation.tasksPreview.AllTasksScreen
 import com.example.to_do_list.presentation.tasksPreview.BottomSheetViewModel
 import com.example.to_do_list.presentation.tasksPreview.FavoriteScreen
-import com.example.to_do_list.presentation.tasksPreview.PreviewTaskViewModel
+import com.example.to_do_list.presentation.tasksPreview.UpdateTaskViewModel
 import com.example.to_do_list.presentation.tasksPreview.ToDayTasksScreen
 
 import com.example.to_do_list.presentation.tasksPreview.TasksScreenViewModel
@@ -22,7 +22,7 @@ import com.example.to_do_list.presentation.tasksPreview.TasksScreenViewModel
 fun AppNavigate(
     tasksScreenViewModel: TasksScreenViewModel,
     bottomSheetViewModel: BottomSheetViewModel,
-    taskPreviewViewModel: PreviewTaskViewModel
+    taskPreviewViewModel: UpdateTaskViewModel
 ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screens.AppNavigation.route){
@@ -36,7 +36,7 @@ fun AppNavigate(
         )){
             val id = it.arguments?.getInt("taskId")
             id?.let {idNotNull->
-                UpdateTaskScreen(taskId = idNotNull,taskPreviewViewModel)
+                UpdateTaskScreen(taskId = idNotNull,taskPreviewViewModel,navController)
             }
         }    }
 }

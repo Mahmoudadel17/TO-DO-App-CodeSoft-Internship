@@ -1,4 +1,4 @@
-package com.example.to_do_list.presentation.components
+package com.example.to_do_list.presentation.tasksPreview
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,17 +27,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.to_do_list.R
-import com.example.to_do_list.presentation.tasksPreview.PreviewTaskViewModel
+import com.example.to_do_list.presentation.components.NormalButtonClickOn
+import com.example.to_do_list.presentation.components.showDatePicker
+import com.example.to_do_list.presentation.components.showTimePicker
 
 @Composable
-fun UpdateTaskScreen(taskId: Int, taskPreviewViewModel: PreviewTaskViewModel) {
+fun UpdateTaskScreen(
+    taskId: Int,
+    taskPreviewViewModel: UpdateTaskViewModel,
+    navController: NavHostController
+) {
     taskPreviewViewModel.setTask(taskId)
-    PreviewTask(taskPreviewViewModel)
+    PreviewTask(taskPreviewViewModel,navController)
 }
 
 @Composable
-fun PreviewTask(taskPreviewViewModel: PreviewTaskViewModel) {
+fun PreviewTask(taskPreviewViewModel: UpdateTaskViewModel, navController: NavHostController) {
     val context = LocalContext.current
 
     val title by taskPreviewViewModel.title.collectAsState()
@@ -126,12 +133,12 @@ fun PreviewTask(taskPreviewViewModel: PreviewTaskViewModel) {
 
         ){
             NormalButtonClickOn(buttonText = "Save" ,paddingValue = 30,Modifier.weight(0.50f)) {
-                taskPreviewViewModel.onSaveClick()
+                taskPreviewViewModel.onSaveClick(navController)
 
             }
             Spacer(modifier = Modifier.width(8.dp))
             NormalButtonClickOn(buttonText = "Cancel", paddingValue = 30,Modifier.weight(0.50f)) {
-                taskPreviewViewModel.onCancelClick()
+                taskPreviewViewModel.onCancelClick(navController)
             }
 
         }

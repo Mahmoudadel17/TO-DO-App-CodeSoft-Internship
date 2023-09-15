@@ -1,6 +1,5 @@
 package com.example.to_do_list.presentation.tasksPreview
 
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,6 +30,8 @@ fun AllTasksScreen(appNavController: NavHostController, viewModel: TasksScreenVi
             Column {
 
                 LazyColumn {
+
+                    
                     items(tasks.filter {task -> !task.isComplete }) {
                         TaskItem(
                             task = it,
@@ -42,9 +43,10 @@ fun AllTasksScreen(appNavController: NavHostController, viewModel: TasksScreenVi
                             onDialogDismiss = {  viewModel.onDismissDialogDelete() },
                             onDateChange = {task,year,month,day -> viewModel.onDateChange(task,year,month,day)},
                             onTimeChange = {task,hour,minute -> viewModel.onTimeChange(task,hour,minute)},
-                        ) {updateTask->
-                            viewModel.onTaskClick(updateTask, appNavController)
-                        }
+                            onUpdateTask = {updateTask -> viewModel.onUpdateTaskClick(updateTask,appNavController)}
+                        )
+
+
                     }
                     item {
                         if (tasks.filter {task -> task.isComplete}.isNotEmpty() && tasks.filter {task -> !task.isComplete}.isNotEmpty()){
@@ -68,10 +70,9 @@ fun AllTasksScreen(appNavController: NavHostController, viewModel: TasksScreenVi
                             onDialogDismiss = { viewModel.onDismissDialogDelete() },
                             onDateChange = {task,year,month,day -> viewModel.onDateChange(task,year,month,day)},
                             onTimeChange = {task,hour,minute -> viewModel.onTimeChange(task,hour,minute)},
-                        ) {updateTask->
-                            // navigate to task view screen
-                            viewModel.onTaskClick(updateTask, appNavController)
-                        }
+                            onUpdateTask = {updateTask -> viewModel.onUpdateTaskClick(updateTask,appNavController)}
+                        )
+
                     }
 
                 }

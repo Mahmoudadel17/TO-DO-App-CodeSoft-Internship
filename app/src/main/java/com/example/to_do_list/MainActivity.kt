@@ -13,12 +13,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.to_do_list.presentation.HomeScreen
 import com.example.to_do_list.presentation.components.SplashScreen
 import com.example.to_do_list.presentation.navigation.AppNavigate
 import com.example.to_do_list.presentation.tasksPreview.BottomSheetViewModel
-import com.example.to_do_list.presentation.tasksPreview.PreviewTaskViewModel
+import com.example.to_do_list.presentation.tasksPreview.UpdateTaskViewModel
 import com.example.to_do_list.presentation.tasksPreview.TasksScreenViewModel
 import com.example.to_do_list.ui.theme.TODOListTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
     private val tasksScreenViewModel by viewModels<TasksScreenViewModel>()
     private val bottomSheetViewModel by viewModels<BottomSheetViewModel>()
-    private val taskPreviewViewModel by viewModels<PreviewTaskViewModel>()
+    private val taskPreviewViewModel by viewModels<UpdateTaskViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

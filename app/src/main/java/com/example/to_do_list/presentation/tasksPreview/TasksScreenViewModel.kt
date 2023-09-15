@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,7 +46,7 @@ class TasksScreenViewModel  @Inject constructor(private val repo:TasksRepository
         _isChange.value = _isChange.value.not()
         viewModelScope.launch (Dispatchers.IO){
             repo.getAllTasks().collect{
-                _tasks.value = it
+                _tasks.value = sortTasks(it)
             }
         }
 
@@ -54,7 +54,7 @@ class TasksScreenViewModel  @Inject constructor(private val repo:TasksRepository
 
 
 
-    fun sortTasks(tasks:List<Task>):List<Task>{
+    private fun sortTasks(tasks:List<Task>):List<Task>{
         return tasks.sortedWith(compareBy<Task> { it.dueDate }.thenBy { it.title })
     }
 
@@ -72,12 +72,6 @@ class TasksScreenViewModel  @Inject constructor(private val repo:TasksRepository
         return date.format(formatter)
     }
 
-    fun addTask(task: Task){
-        viewModelScope.launch(Dispatchers.IO){
-            repo.addTask(task)
-            getAllTasks()
-        }
-    }
 
 
 
@@ -104,13 +98,18 @@ class TasksScreenViewModel  @Inject constructor(private val repo:TasksRepository
         }
     }
 
+
     fun onShowDialogDelete(task: Task){
         _showDialog.value = true
         taskWillDeleted = task
     }
+
+
     fun onDismissDialogDelete(){
         _showDialog.value = false
+        getAllTasks()
     }
+
 
     fun onTimeChange(task: Task,hour:Int,minute:Int){
         val newDueDate : LocalDateTime = LocalDateTime.of(
@@ -132,7 +131,7 @@ class TasksScreenViewModel  @Inject constructor(private val repo:TasksRepository
     }
 
 
-    fun onTaskClick(task: Task,navController:NavHostController){
+    fun onUpdateTaskClick(task: Task, navController:NavHostController){
         navController.navigate("${Screens.UpdateScreen.route}/${task.id}")
     }
 
