@@ -16,17 +16,17 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = textViewBackgroundDark, // text
-    background = backgroundDark,
+    primary = Splash,
+    secondary = textViewBackground, // text
+    background = background,
     tertiary = Pink80,
     onSurface = taskComponentsColor, //  i use it in Task icons and CheckBox
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = textViewBackgroundLight,
-    background = backgroundLight,
+    primary = Splash,
+    secondary = textViewBackground,
+    background = background,
     tertiary = Pink40,
     onSurface = taskComponentsColor, //  i use it in Task icons and CheckBox
 

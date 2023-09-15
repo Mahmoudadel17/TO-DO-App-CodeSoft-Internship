@@ -11,15 +11,12 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 
-//474E68 dark background
-val backgroundLight = Color.White
-val backgroundDark = Color(0xFF404258)
+val background = Color.White
 
 val Splash = Color(0xFF474E68)
 val TextSplash = Color(0xFFAA9988)
 
-val textViewBackgroundLight = Color(0xFFE9F8F9)
-val textViewBackgroundDark = Color.Black
+val textViewBackground = Color.Black
 
 
 val taskColor = Color(0xFF9DB2BF)
@@ -27,3 +24,5 @@ val taskColor = Color(0xFF9DB2BF)
 val floatingActionButton = Color(0xFF19A7CE)
 
 val taskComponentsColor = Color.DarkGray
+
+val goldFavorite = Color(0xFFD2AC47)

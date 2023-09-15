@@ -5,12 +5,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
 
     @Query("SELECT * FROM Tasks_table")
-    fun getAllTasks(): List<Task>
+    fun getAllTasks(): Flow<List<Task>>
 
     @Query("SELECT * FROM Tasks_table WHERE id = :id")
     fun getTaskByID(id:Int) : Task

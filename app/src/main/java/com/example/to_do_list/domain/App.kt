@@ -1,4 +1,7 @@
 package com.example.to_do_list.domain
 
-class App {
-}
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class App : Application()

@@ -7,5 +7,5 @@ import androidx.room.TypeConverters
 @Database(entities = [Task::class], version = 1)
 @TypeConverters(LocalDateTimeConverter::class)
 abstract class MyDatabase :RoomDatabase() {
-    abstract fun taskDao():TaskDao
+    abstract fun getTaskDao():TaskDao
 }
