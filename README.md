@@ -19,8 +19,6 @@ also can show tasks on different pages based on "Today, AllTasks, Favorites" and
 
 - Navigation: The Navigation component is employed to manage navigation within the app. It provides a consistent and predictable way to navigate between different screens.
 
-- UI Components: The app features a Tab Layout for organizing content and enhancing user navigation between different sections.
-
 - Database: Room Database is utilized to handle local data persistence. This provides a robust and efficient way to manage and query data locally.
 
 - Concurrency: Coroutines are used to manage asynchronous operations and simplify concurrency handling. They enable smoother execution of tasks without blocking the main thread.
